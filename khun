@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEA's Birthday Countdown</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://th.bing.com/th/id/R.765c81a390b85d9c30c88722de88b3d9?rik=SGppq5faklcGYw&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fyicqU5u.jpg&ehk=uZUVkNsNa4gxOKAKNysrwdLyU0GxfAq708PmyITkzkQ%3d&risl=&pid=ImgRaw&r=0'); /* Hello Kitty background image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      margin: 0;
+      color: #ff0066; /* Pink text color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #countdown-container {
+      text-align: center;
+    }
+    h1 {
+      margin-top: 50px;
+    }
+    p {
+      font-size: 18px;
+    }
+    #countdown {
+      font-size: 36px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="countdown-container">
+  <h1>PEA's Birthday Countdown</h1>
+  <p>Counting down to PEA's birthday!</p>
+  
+  <div id="countdown"></div>
+</div>
+
+<script>
+  // Function to convert time from Singapore time to UTC
+  function singaporeToUTC(date) {
+    const singaporeOffset = 8 * 60 * 60 * 1000; // Singapore is UTC+8
+    return new Date(date.getTime() - singaporeOffset);
+  }
+
+  // Set the date of PEA's birthday in Singapore time (year, month (0-indexed), day, hour, minute)
+  const birthday = singaporeToUTC(new Date(Date.UTC(2024, 1, 8, 0, 0))); // February 8th, 2024, 00:00 in Singapore time
+
+  function updateCountdown() {
+    const now = singaporeToUTC(new Date());
+    let diff = birthday - now;
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * (1000 * 60);
+    const seconds = Math.floor(diff / 1000);
+
+    document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  // Update countdown every second
+  setInterval(updateCountdown, 1000);
+
+  // Initial call to display countdown immediately
+  updateCountdown();
+</script>
+
+</body>
+</html>
